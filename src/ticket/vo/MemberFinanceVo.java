@@ -5,6 +5,7 @@ public class MemberFinanceVo {
 	long totalOrder;
 	long paidOrder;
 	long cancelledOrder;
+	int state;
 	double consumption;
 	/**
 	 * @param email
@@ -13,12 +14,13 @@ public class MemberFinanceVo {
 	 * @param cancelledOrder
 	 * @param consumption
 	 */
-	public MemberFinanceVo(String email, long totalOrder, long paidOrder, long cancelledOrder, double consumption) {
+	public MemberFinanceVo(String email, long totalOrder, long paidOrder, long cancelledOrder, int state,double consumption) {
 		super();
 		this.email = email;
 		this.totalOrder = totalOrder;
 		this.paidOrder = paidOrder;
 		this.cancelledOrder = cancelledOrder;
+		this.state = state;
 		this.consumption = consumption;
 	}
 	/**
@@ -68,6 +70,19 @@ public class MemberFinanceVo {
 	 */
 	public void setCancelledOrder(long cancelledOrder) {
 		this.cancelledOrder = cancelledOrder;
+	}
+	
+	/**
+	 * @return the state
+	 */
+	public int getState() {
+		return state;
+	}
+	/**
+	 * @param state the state to set
+	 */
+	public void setState(int state) {
+		this.state = state;
 	}
 	/**
 	 * @return the consumption

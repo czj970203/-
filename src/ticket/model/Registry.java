@@ -24,6 +24,8 @@ public class Registry {
 	double income;
 	// 结算比例
 	double percent;
+	// 审批状态（0为未审批过，1为审批过）
+	int isViewed;
 
 	/**
 	 * @return the hallNo
@@ -146,5 +148,21 @@ public class Registry {
 	public void setPercent(double percent) {
 		this.percent = percent;
 	}
+
+	/**
+	 * @return the isViewed
+	 */
+	public int getIsViewed() {
+		return isViewed;
+	}
+
+	/**
+	 * @param isViewed the isViewed to set
+	 */
+	public void setIsViewed(int isViewed) {
+		this.isViewed = isViewed;
+	}
+	
+	
 
 }

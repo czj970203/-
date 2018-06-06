@@ -1,6 +1,9 @@
 package ticket.dao;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -25,7 +28,7 @@ public class OrderDao {
 	}
 
 	public Message update(Order order) {
-		return baseDao.save(order);
+		return baseDao.update(order);
 	}
 
 	public Message delete(Order order) {
@@ -45,10 +48,33 @@ public class OrderDao {
 		List<Plan> list = new ArrayList<Plan>();
 		try {
 			Transaction tx = session.beginTransaction();
-			String queryString = "from Order as model where model." + propname1 + " = ? and " + propname2 + " = ?";
+			String queryString = "from Order as model where model." + propname1 + " = ? and model." + propname2 + " = ?";
 			Query queryObject = session.createQuery(queryString);
 			queryObject.setParameter(0, value1);
 			queryObject.setParameter(1, value2);
+			list = queryObject.list();
+			tx.commit();
+			return new Message(true, list, "数据获取成功");
+		} catch (Exception e) {
+			e.printStackTrace();
+			if (session != null) {
+				session.getTransaction().rollback();
+			}
+			return new Message(false, "数据获取失败");
+		} finally {
+			session.close();
+		}
+	}
+	public Message findOrderByTrouble(String propname1, Object value1, String propname2, Object value2, String propname3, Object value3) {
+		Session session = baseDao.getSession();
+		List<Plan> list = new ArrayList<Plan>();
+		try {
+			Transaction tx = session.beginTransaction();
+			String queryString = "from Order as model where model." + propname1 + " = ? and model." + propname2 + " = ? and model." + propname3 + " = ?";
+			Query queryObject = session.createQuery(queryString);
+			queryObject.setParameter(0, value1);
+			queryObject.setParameter(1, value2);
+			queryObject.setParameter(2, value3);
 			list = queryObject.list();
 			tx.commit();
 			return new Message(true, list, "数据获取成功");
@@ -99,27 +125,67 @@ public class OrderDao {
 	 * @return 所有未支付的订单
 	 */
 	public Message getUnpaidOrders() {
-		return baseDao.findByProperty(Order.class, "payState", 0);
+		return findOrderByDouble("payState",0,"isCancelled",1);
 	}
 
 	/**
 	 * @return 所有未配票成功的订单
 	 */
 	public Message getUnallocOrders() {
-		return baseDao.findByProperty(Order.class, "allocState", 0);
+		return findOrderByDouble("payState",1,"allocState",0);
 	}
 
 	/**
 	 * @return 所有未结算给商家的订单
 	 */
-	public Message getUnbalancedOrders() {
-		return baseDao.findByProperty(Order.class, "isSettled", 0);
-	}
+//	public Message getUnbalancedOrders() {
+//		Message message = baseDao.findByProperty(Order.class, "isSettled", 0);
+//		List<Order> list1 = (List<Order>)message.getObject();
+//		List<Order> result = new ArrayList<Order>();
+//		for(Order order:list1) {
+//			String showdate = order.getShowDate();
+//			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//			Date showDate = null;
+//			try {
+//				showDate = dateFormat.parse(showdate);
+//			} catch (ParseException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//			Date nowDate = new Date();
+//			long timetemp = showDate.getTime() - nowDate.getTime();
+//			if(timetemp<0) {
+//				result.add(order);
+//			}
+//		}
+//		return new Message(true,result,"获取未结算订单成功");
+//	}
 
 	/**
 	 * @return 所有退订的订单
 	 */
 	public Message getCancelledOrders() {
 		return baseDao.findByProperty(Order.class, "isCancelled", 0);
+	}
+	
+	public Message searchOrder(int orderid) {
+		Session session = baseDao.getSession();
+		List<Plan> list = new ArrayList<Plan>();
+		try {
+			Transaction tx = session.beginTransaction();
+			String queryString = "from Order as model where model.orderid like '%"+orderid+"%'";
+			Query queryObject = session.createQuery(queryString);
+			list = queryObject.list();
+			tx.commit();
+			return new Message(true, list, "数据获取成功");
+		} catch (Exception e) {
+			e.printStackTrace();
+			if (session != null) {
+				session.getTransaction().rollback();
+			}
+			return new Message(false, "数据获取失败");
+		} finally {
+			session.close();
+		}
 	}
 }

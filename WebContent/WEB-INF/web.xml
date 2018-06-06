@@ -12,11 +12,14 @@
 
 		<param-name>contextConfigLocation</param-name>
 
-		<!-- 注意我的applicationContext.xml 和下面的springmvc的配置文件都是放在src下的 -->
-
 		<param-value>classpath:applicationContext.xml</param-value>
 
 	</context-param>
+
+<!-- 	<context-param> -->
+<!-- 		<param-name>contextConfigLocation</param-name> -->
+<!-- 		<param-value>classpath:springmvc.xml</param-value> -->
+<!-- 	</context-param> -->
 
 	<servlet>
 		<servlet-name>springMVC</servlet-name>
@@ -64,31 +67,18 @@
 	</filter-mapping>
 
 
-	<filter>
-		<filter-name>LoginCheck</filter-name>
-		<filter-class>com.fivedreamer.drhotel.filter.CheckLoginFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>LoginCheck</filter-name>
-		<url-pattern>*.html</url-pattern>
-	</filter-mapping>
-
-	<!--提供RESTFUL的接口 -->
-
-	<!--<filter> -->
-	<!--<filter-name>Hidden</filter-name> -->
-	<!--<filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class> -->
-	<!--</filter> -->
-	<!--<filter-mapping> -->
-	<!--<filter-name>Hidden</filter-name> -->
-	<!--<url-pattern>/</url-pattern> -->
-	<!--</filter-mapping> -->
-
-
+<!-- 	<filter> -->
+<!-- 		<filter-name>LoginCheck</filter-name> -->
+<!-- 		<filter-class>ticket.filters.CheckLoginFilter</filter-class> -->
+<!-- 	</filter> -->
+<!-- 	<filter-mapping> -->
+<!-- 		<filter-name>LoginCheck</filter-name> -->
+<!-- 		<url-pattern>*.html</url-pattern> -->
+<!-- 	</filter-mapping> -->
 
 	<servlet-mapping>
 		<servlet-name>default</servlet-name>
-		<url-pattern>/assets/fonts/*</url-pattern>
+		<url-pattern>/fonts/*</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>default</servlet-name>

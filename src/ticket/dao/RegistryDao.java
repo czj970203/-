@@ -17,9 +17,9 @@ public class RegistryDao {
 		return baseDao.save(reg);
 	}
 	
-//	public Message updateReg(Registry reg) {
-//		return baseDao.update(reg);
-//	}
+	public Message updateReg(Registry reg) {
+		return baseDao.update(reg);
+	}
 	
 	public Message deleteReg(Registry reg) {
 		return baseDao.delete(reg);
@@ -30,6 +30,7 @@ public class RegistryDao {
 	}
 	
 	public Message getAllReg() {
-		return baseDao.getAll(Registry.class);
+		return baseDao.findByProperty(Registry.class, "isViewed", 0);
 	}
+	
 }

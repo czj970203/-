@@ -21,11 +21,16 @@ public class UpdateDao {
 		return baseDao.save(up);
 	}
 
-	public Message findUpdateById(int hotelNo) {
-		return baseDao.findById(Update.class, hotelNo);
+	public Message findUpdateById(int hallNo) {
+		return baseDao.findById(Update.class, hallNo);
 	}
 
 	public Message getAllUpdate() {
 		return baseDao.getAll(Update.class);
 	}
+	
+	public Message update(Update up) {
+		return baseDao.update(up);
+	}
+	
 }

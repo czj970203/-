@@ -21,6 +21,7 @@ import ticket.model.Order;
 import ticket.model.Registry;
 import ticket.model.Update;
 import ticket.vo.HallFinanceVo;
+import ticket.vo.HallInfoVo;
 import ticket.vo.MemberFinanceVo;
 import ticket.vo.SystemFinanceVo;
 
@@ -44,6 +45,7 @@ public class ManagerService {
 		Message message = registryDao.findRegById(hallNo);
 		if (message.getResult() == true) {
 			Registry reg = (Registry) message.getObject();
+			
 			Hall hall = new Hall();
 			hall.setHallNo(reg.getHallNo());
 			hall.setPassword(reg.getPassword());
@@ -51,8 +53,11 @@ public class ManagerService {
 			hall.setAddress(reg.getAddress());
 			hall.setJuniorNum(reg.getJuniorNum());
 			hall.setSeniorNum(reg.getSeniorNum());
+			hall.setPercent(reg.getPercent());
 			hall.setIncome(reg.getIncome());
 			hallDao.addHall(hall);
+			reg.setIsViewed(1);
+			registryDao.updateReg(reg);
 			return new Message(true, "场馆注册已通过");
 		} else {
 			return new Message(false, "场馆注册审批失败");
@@ -63,7 +68,9 @@ public class ManagerService {
 		Message message = registryDao.findRegById(hallNo);
 		if (message.getResult() == true) {
 			Registry reg = (Registry) message.getObject();
-			registryDao.deleteReg(reg);
+			reg.setIsViewed(1);
+			registryDao.updateReg(reg);
+
 			return new Message(true, "场馆注册已拒绝");
 		} else {
 			return new Message(false, "场馆注册审批失败");
@@ -83,6 +90,7 @@ public class ManagerService {
 			hall.setSeniorNum(up.getSeniorNum());
 			hall.setIncome(up.getIncome());
 			hallDao.updateHall(hall);
+			updateDao.deleteUpdate(up);
 			return new Message(true, "场馆更新已通过");
 		} else {
 			return new Message(false, "场馆更新审批失败");
@@ -103,8 +111,8 @@ public class ManagerService {
 	public Message settleOrders(int hallNo) {
 		Message hallMessage = hallDao.findHallById(hallNo);
 		Message orderMessage = hallDao.getUnsettledOrders(hallNo);
-		Message managerMessage = managerDao.findManager(0001);
-		if (hallMessage.getResult() && orderMessage.getResult()) {
+		Message managerMessage = managerDao.findManager(1437);
+		if (hallMessage.getResult() == true && orderMessage.getResult() == true) {
 			Hall hall = (Hall) hallMessage.getObject();
 			List<Order> orders = (List<Order>) orderMessage.getObject();
 			Manager manager = (Manager) managerMessage.getObject();
@@ -126,13 +134,15 @@ public class ManagerService {
 		Message hallMessage = hallDao.getAllHall();
 		if (hallMessage.getResult() == true) {
 			List<Hall> hallList = (List<Hall>) hallMessage.getObject();
-			List<HallFinanceVo> list = new ArrayList<HallFinanceVo>();
+			List<HallInfoVo> list = new ArrayList<HallInfoVo>();
 			for (Hall hall : hallList) {
-				long totalNum = (long) hallDao.getOnlineNum(hall.getHallNo()).getObject();
+				long totalNum = (long) hallDao.getTotalOrderNum(hall.getHallNo()).getObject();
+				long onlineNum = (long) hallDao.getOnlineNum(hall.getHallNo()).getObject();
 				long successNum = (long) hallDao.getSuccessNum(hall.getHallNo()).getObject();
 				long cancelledNum = (long) hallDao.getCancelledNum(hall.getHallNo()).getObject();
-				HallFinanceVo vo = new HallFinanceVo(hall.getHallNo(), hall.getHallName(), totalNum, successNum,
-						cancelledNum, hall.getIncome());
+				double offline_income = (double) hallDao.getOfflineIncome(hall.getHallNo()).getObject();
+				HallInfoVo vo = new HallInfoVo(hall.getHallNo(), hall.getHallName(), totalNum, onlineNum, successNum,
+						cancelledNum, hall.getIncome(), offline_income);
 				list.add(vo);
 			}
 			return new Message(true, list, "获取场馆统计成功");
@@ -150,7 +160,7 @@ public class ManagerService {
 				long totalNum = (long) memberDao.getOnlineNum(member.getEmail()).getObject();
 				long paidNum = (long) memberDao.getPaidNum(member.getEmail()).getObject();
 				long cancelledNum = (long) memberDao.getCancelledNum(member.getEmail()).getObject();
-				MemberFinanceVo vo = new MemberFinanceVo(member.getEmail(), totalNum, paidNum, cancelledNum,
+				MemberFinanceVo vo = new MemberFinanceVo(member.getEmail(), totalNum, paidNum, cancelledNum,member.getState(),
 						member.getConsumption());
 				list.add(vo);
 			}
@@ -161,12 +171,12 @@ public class ManagerService {
 	}
 
 	public Message getSystemFinances() {
-		Message memberMessage = memberDao.getAllMembers();
-		Message hallMessage = hallDao.getAllHall();
-		Message orderMessage = orderDao.getAllOrders();
-		Message managerMessage = managerDao.findManager(0001);
-		if (orderMessage.getResult() && memberMessage.getResult() && hallMessage.getResult()
-				&& managerMessage.getResult()) {
+		Message memberMessage = memberDao.getMemberNum();
+		Message hallMessage = hallDao.getHallNum();
+		Message orderMessage = orderDao.getOrderNum();
+		Message managerMessage = managerDao.findManager(1437);
+		if (orderMessage.getResult() == true && memberMessage.getResult() == true && hallMessage.getResult() == true
+				&& managerMessage.getResult() == true) {
 			long totalMember = (long) memberMessage.getObject();
 			long totalHall = (long) hallMessage.getObject();
 			long totalOrder = (long) orderMessage.getObject();
@@ -176,7 +186,7 @@ public class ManagerService {
 				long count = (long) message.getObject();
 				lvlMember[i] = count;
 			}
-			double totalConsumption = (long) orderDao.getTotalConsumption().getObject();
+			double totalConsumption = (double) orderDao.getTotalConsumption().getObject();
 			double totalIncome = ((Manager) managerMessage.getObject()).getIncome();
 			SystemFinanceVo vo = new SystemFinanceVo(totalMember, totalHall, totalOrder, lvlMember, totalConsumption,
 					totalIncome);

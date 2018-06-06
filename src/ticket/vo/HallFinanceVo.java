@@ -7,7 +7,8 @@ public class HallFinanceVo {
 	long totalOrder;
 	long successOrder;
 	long cancelledOrder;
-	double income;
+	double online_income;
+	double offline_income;
 	/**
 	 * @param hallNo
 	 * @param hallName
@@ -17,14 +18,15 @@ public class HallFinanceVo {
 	 * @param income
 	 */
 	public HallFinanceVo(int hallNo, String hallName, long totalOrder, long successOrder, long cancelledOrder,
-			double income) {
+			double online_income, double offline_income) {
 		super();
 		this.hallNo = hallNo;
 		this.hallName = hallName;
 		this.totalOrder = totalOrder;
 		this.successOrder = successOrder;
 		this.cancelledOrder = cancelledOrder;
-		this.income = income;
+		this.online_income = online_income;
+		this.offline_income = offline_income;
 	}
 	/**
 	 * @return the hallNo
@@ -87,17 +89,30 @@ public class HallFinanceVo {
 		this.cancelledOrder = cancelledOrder;
 	}
 	/**
-	 * @return the income
+	 * @return the online_income
 	 */
-	public double getIncome() {
-		return income;
+	public double getOnline_income() {
+		return online_income;
 	}
 	/**
-	 * @param income the income to set
+	 * @param online_income the online_income to set
 	 */
-	public void setIncome(double income) {
-		this.income = income;
+	public void setOnline_income(double online_income) {
+		this.online_income = online_income;
 	}
+	/**
+	 * @return the offline_income
+	 */
+	public double getOffline_income() {
+		return offline_income;
+	}
+	/**
+	 * @param offline_income the offline_income to set
+	 */
+	public void setOffline_income(double offline_income) {
+		this.offline_income = offline_income;
+	}
+	
 
 	
 }
