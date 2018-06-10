@@ -857,7 +857,7 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='@topColor', end
 	border-bottom-right-radius: 2px
 }
 .sidebar-user .user-avatar {
-	background: #fff;
+	background: #FFF68F;
 	border: 1px solid #ccc;
 	border-bottom-color: #ccc;
 	height: 70px;
@@ -901,7 +901,7 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='@topColor', end
 	overflow: hidden
 }
 .widget-menu a {
-	color: #555;
+	color: #000;
 	display: block;
 	line-height: 20px;
 	padding: 15px;
@@ -911,7 +911,7 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='@topColor', end
 	 
 	margin-right: 10px;
 	 
-	color: #767676;
+	color: #fff;
 	 -webkit-transition: all .2s ease-in-out;
 -moz-transition: all .2s ease-in-out;
 transition: all .2s ease-in-out;
@@ -937,8 +937,8 @@ transition: all .2s ease-in-out;
 	border-top: 1px solid #555
 }
 .widget-menu>li>a {
-	background-color: #2d2b32;
-	color: #767676;
+	background-color: #29b7d3;
+	color: #fff;
 	-webkit-transition: all .2s ease-in-out;
 -moz-transition: all .2s ease-in-out;
 transition: all .2s ease-in-out;

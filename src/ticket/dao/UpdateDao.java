@@ -18,7 +18,7 @@ public class UpdateDao {
 	}
 
 	public Message deleteUpdate(Update up) {
-		return baseDao.save(up);
+		return baseDao.delete(up);
 	}
 
 	public Message findUpdateById(int hallNo) {

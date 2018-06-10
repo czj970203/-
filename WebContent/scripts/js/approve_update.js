@@ -35,6 +35,8 @@ function init() {
 
 function approve(i){
 	var hallNo = $('#hallNo'+i).html();
+	var r = confirm("确认同意吗？");
+	if(r==true){
 	$.ajax({
 		url : 'http://localhost:8080/Tickets/manager/approve_update',
 		type : 'post',
@@ -45,19 +47,22 @@ function approve(i){
 		success:function(data){
 			if(data.result==true){
 				top.location = 'http://localhost:8080/Tickets/page/approve_reg.html';
-				alert("通过注册成功！")
+				alert("通过更新成功！")
 			}else{
-				alert("通过注册失败，原因："+data.reason);
+				alert("通过更新失败，原因："+data.reason);
 			}
 		},
 		error:function(){
 			alert("服务器连接失败！");
 		}
 	});
+	}
 }
 
 function deny(i){
 	var hallNo = $('#hallNo'+i).html();
+	var r = confirm("确认拒绝吗？");
+	if(r == true){
 	$.ajax({
 		url : 'http://localhost:8080/Tickets/manager/deny_update',
 		type : 'post',
@@ -68,14 +73,15 @@ function deny(i){
 		success:function(data){
 			if(data.result==true){
 				top.location = 'http://localhost:8080/Tickets/page/approve_reg.html';
-				alert("拒绝注册成功！");
+				alert("拒绝更新成功！");
 			}else{
-				alert("拒绝注册失败，原因："+data.reason);
+				alert("拒绝更新失败，原因："+data.reason);
 			}
 		},
 		error:function(){
 			alert("服务器连接失败！");
 		}
 	});
+	}
 }
 

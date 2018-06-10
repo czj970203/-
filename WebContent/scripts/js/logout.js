@@ -12,7 +12,6 @@ function logout() {
 			}
 		},
 		error : function(XMLHttpRequest) {
-			alert(XMLHttpRequest.status);
 			alert("服务器连接失败");
 		}
 	});

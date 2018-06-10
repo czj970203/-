@@ -301,5 +301,28 @@ public class MemberController {
 		}
 
 	}
+	
+	@RequestMapping(value="change_pswd")
+	@ResponseBody
+	public Message changePswd(HttpSession session, String oldPassword, String newPassword, String confirmPswd) {
+		Member member = (Member) session.getAttribute("member");
+		if(!member.getPassword().equals(oldPassword)) {
+			
+			return new Message(false, "原密码错误");
+		}else {
+			if(!newPassword.equals(confirmPswd)) {
+				return new Message(false, "两次输入的密码不一致");
+			}else {
+				MemberUpdateVo vo = new MemberUpdateVo(member.getEmail(), newPassword, member.getTelephone(), member.getName(), member.getSex());
+				Message message = memberService.updateMemberInfo(vo);
+				if(message.getResult()==true) {
+					return new Message(true, "密码修改成功");
+				}else {
+					return new Message(false, "密码修改失败");
+				}
+			}
+		}
+	}
+	
 
 }

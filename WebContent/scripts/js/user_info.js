@@ -10,7 +10,6 @@ function init() {
 			if (data.result == true) {
 				var result = data.object;
 				$('#username').html(result.email);
-				$('#password').html(result.password);
 				$('#name').html(result.name);
 				$('#telephone').html(result.telephone);
 				$('#sex').html(result.sex==0?"男":"女");
