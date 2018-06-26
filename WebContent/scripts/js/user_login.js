@@ -31,7 +31,7 @@ function login() {
 		data : result,
 		success : function(data) {
 			if (data.result == true) {
-				top.location = 'http://localhost:8080/Tickets/page/user_info.html';
+				top.location = 'http://localhost:8080/Tickets/page/user_ticket.html';
 			} else {
 				alert("登录失败，原因：" + data.reason);
 			}

@@ -7,9 +7,9 @@ function init(){
 		success : function(data) {
 			if(data.result == true){
 			var result = data.object;
+			if(result.length != 0){
 			for(var i=0;i<result.length;i++){
 				var ticketType = result[i].ticketType==0?"普通座":"高等座";
-				
 				$('#orderBody').append('<tr class="unread"><td class="cell-icon hidden-phone hidden-tablet"></td>'+
 						'<td class="cell-status hidden-phone hidden-tablet" id="orderid'+i+'">'+result[i].orderid+'</td>'+
 						'<td class="cell-status hidden-phone hidden-tablet">'+result[i].hallName+'</td>'+
@@ -21,6 +21,10 @@ function init(){
 						'<button name="view" type="button" class="btn btn-primary" onclick="view('+i+')">查看</button>&nbsp;&nbsp;'+
 						'<button name="unpaid" type="button" class="btn btn-success" onclick="pay('+i+')">支付</button>&nbsp;&nbsp;'+
 						'</td><tr/>');
+			}
+			}else{
+				$("#orderBody").append('<tr class="unread"><td class="cell-icon hidden-phone hidden-tablet"></td>'+
+						'<td class="cell-time">当前无未支付订单！</td><tr/>');
 			}
 			$('#banner').html("Welcome, "+result[0].email);
 			}else{

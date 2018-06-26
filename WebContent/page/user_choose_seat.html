@@ -106,6 +106,9 @@
 																	]
 														},
 														click : function() {
+															if($tickets_num >= 6){
+																alert("您最多只能购买6张选座票！");
+															}else{
 															if (this.status() == 'available') { //若为可选座状态，添加座位
 																$('<li>' + (this.settings.row + 1) + '排' + this.settings.label + '座</li>')
 																		.attr( 'id', 'cart-item-' + this.settings.id)
@@ -124,6 +127,7 @@
 															} else {
 																return this.style();
 															}
+														}
 														}
 													});
 											//设置已售出的座位
@@ -179,6 +183,9 @@
 																	]
 														},
 														click : function() {
+															if($tickets_num >= 6){
+																alert("您最多只能购买6张选座票！");
+															}else{
 															if (this.status() == 'available') { //若为可选座状态，添加座位
 																$('<li>' + (this.settings.row + 1) + '排' + this.settings.label + '座</li>')
 																		.attr( 'id', 'cart-item-' + this.settings.id)
@@ -196,6 +203,7 @@
 																return 'unavailable';
 															} else {
 																return this.style();
+															}
 															}
 														}
 													});

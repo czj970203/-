@@ -15,6 +15,7 @@ function init() {
 		success:function(data){
 			if(data.result == true){
 				var result = data.object;
+				if(result.length!=0){
 				for(var i=0;i<result.length;i++){
 					$('#planBody').append('<tr class="unread"><td class="cell-icon hidden-phone hidden-tablet"></td>'+
 							'<td class="cell-status hidden-phone hidden-tablet" id="planNo'+i+'">'+result[i].planNo+'</td>'+
@@ -27,6 +28,10 @@ function init() {
 							'</td></tr>');
 				}
 				$('#banner').html("Welcome, " + result[0].email);
+				}else{
+					$('#planBody').append('<tr class="unread"><td class="cell-icon hidden-phone hidden-tablet"></td>'+
+							'<td class="cell-time">当前无可选演出</td><tr/>');
+				}
 			}else{
 				alert(data.reason);
 			}

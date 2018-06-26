@@ -30,7 +30,8 @@
 				<div class="nav-collapse collapse navbar-inverse-collapse">
 					
 					<ul class="nav pull-right">
-						<li class="nav-user dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">
+						<li class="nav-user dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 		登录
                                 <b class="caret"></b></a>
                             <ul class="dropdown-menu">
@@ -61,34 +62,52 @@
 	<div class="wrapper">
 		<div class="container">
 			<div class="row">
-				<div class="module module-login span4 offset4">
+				<div class="module module-login span5">
+				欢迎您！
+				</div>
+				<div class="module module-login span2" style="visibility:hidden">
+				</div>
+				<div class="module module-login span4">
 					<div class="form-vertical">
 						<div class="module-head">
-							<h3>用户登录</h3>
+						<center><h3>用户登录</h3></center>
 						</div>
-						<div class="module-body">
-							<!-- 						账号                                       -->
+						<div class="module-body" style="height:200px">
 							<div class="control-group">
 								<div class="controls row-fluid">
-									<input class="span12" type="text" name="username"
-										placeholder="Username(邮箱格式)" id="username">
+									<input class="span6 offset2" type="hidden">
 								</div>
 							</div>
-							<!-- 							密码                                -->
 							<div class="control-group">
 								<div class="controls row-fluid">
-									<input class="span12" type="password" name="password"
-										placeholder="Password(12位)" id="password">
+									<input class="span6 offset2" type="hidden">
 								</div>
 							</div>
+							<div class="control-group" style="padding:0px 0px 0px 90px">
+								<div class="controls row-fluid" >
+								 	<label class="control-label" for="basicinput">用户名</label>
+									<input class="span8" type="text" name="username"
+										placeholder="Username(邮箱)" id="username">
+								</div>
+							</div>
+							
+							<div class="control-group" style="padding:0px 0px 0px 90px">
+								<div class="controls row-fluid" >
+								    <label class="control-label" for="basicinput">密码</label>
+									<input class="span8" type="password" name="password"
+										placeholder="Password" id="password">
+								</div>
+							</div>
+
+							
 						</div>
 						<div class="module-foot">
 							<div class="control-group">
 								<div class="controls clearfix">
 									<!-- 								登录按钮                                 -->
-									<button type="button" class="btn btn-primary pull-right"
+									<button type="button" class="btn btn-large btn-primary pull-right"
 										name="submit" id="loginButton" onclick="login()">登录</button>
-									<label class="checkbox"> <input type="checkbox">
+									<label class="checkbox" style="font-size:17px"> <input type="checkbox">
 										记住我
 									</label>
 								</div>

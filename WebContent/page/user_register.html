@@ -59,51 +59,61 @@
 	<div class="wrapper">
 		<div class="container">
 			<div class="row">
-				<div class="module module-login span4 offset4">
-
+				<div class="module module-login span5">
+				欢迎您！
+				</div>
+				<div class="module module-login span2" style="visibility:hidden">
+				</div>
+				<div class="module module-login span4">
 					<div class="module-head">
-						<h3>注册</h3>
+						<center><h3>注册</h3></center>
 					</div>
 					<div class="module-body">
 <!-- 					用户名 -->
 						<div class="control-group">
 							<div class="controls row-fluid">
-								<input class="span10" type="text" name="username"
+								用户名：&nbsp;&nbsp;&nbsp;&nbsp;
+								<input class="span6" type="text" name="username"
 									placeholder="用户名（邮箱格式）" id="username">
 							</div>
 						</div>
 <!-- 						密码 -->
 						<div class="control-group">
 							<div class="controls row-fluid">
-								<input class="span10" type="password" name="password1"
+								密码：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<input class="span6" type="password" name="password1"
 									placeholder="密码" id="password1">
 							</div>
 						</div>
 <!-- 						确认密码 -->
 						<div class="control-group">
 							<div class="controls row-fluid">
-								<input class="span10" type="password" name="password2"
+								重复密码：
+								<input class="span6" type="password" name="password2"
 									placeholder="重复密码" id="password2">
 							</div>
 						</div>
 <!-- 						电话 -->
 						<div class="control-group">
 							<div class="controls row-fluid">
-								<input class="span10" type="text" name="telephone"
+								电话：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<input class="span6" type="text" name="telephone"
 									placeholder="电话" id="telephone">
 							</div>
 						</div>
 <!-- 						姓名 -->
 						<div class="control-group">
 							<div class="controls row-fluid">
-								<input class="span10" type="text" name="name"
+								姓名：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<input class="span6" type="text" name="name"
 									placeholder="姓名" id="name">
 							</div>
 						</div>
 <!-- 						性别        需要修改一下下拉框样式-->
 						<div class="control-group">
 							<div class="controls row-fluid clear-fix">
-								<select id="sex">
+								性别：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<select id="sex" class="span6">
 									<option>请选择性别</option>
 									<option value="0">男</option>	
 									<option value="1">女</option>
